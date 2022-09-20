@@ -1,0 +1,11 @@
+{
+  "name": "mindustry-go",
+  "displayName": "Mindustry Go",
+  "description": "A special battle-royal-like gamemode.",
+  "author": "lucin",
+  "main": "net.darkdustry.go.Main",
+  "hidden": false,
+  "java": true,
+  "version": "1.0.0",
+  "minGameVersion": 138
+}
