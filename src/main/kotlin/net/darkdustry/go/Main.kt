@@ -10,8 +10,8 @@ import net.darkdustry.go.utils.*
 class Main : Plugin() {
     override fun init() {
 
-        PluginEvents.init()
         PlayersData.init()
+        PluginEvents.init()
         Database.init()
         Bundler.init()
 
