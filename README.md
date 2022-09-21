@@ -1,5 +1,6 @@
 <div align="center">
     <h1>Mindustry Go</h1>
+    <p>(В разработке).</p>
     <p>Игровой режим по типу CS:GO.</p>
 </div>
 
