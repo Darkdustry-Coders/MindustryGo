@@ -2,7 +2,6 @@ package net.darkdustry.go.utils
 
 import arc.*
 import arc.struct.ObjectMap
-import arc.util.Log
 import mindustry.game.EventType.*
 import mindustry.gen.*
 import mindustry.gen.Unit
@@ -18,26 +17,22 @@ object PlayersData {
     fun init() {
         Events.on(PlayerJoin::class.java) { event ->
             val player = event.player
-
             playerData.put(player.uuid(), UnitData(player.unit()))
-            unitData.put(player.unit().id, playerData.get(player.uuid()))
-
             Database.write(bytes(player.uuid()), PlayerModel(player.uuid(), player.name).toByteArray())
         }
 
         Events.on(PlayerLeave::class.java) { event ->
             playerData.remove(event.player.uuid())
-            unitData.remove(event.player.unit().id)
         }
 
-        Events.run(Trigger.update::class.java) {
+        Events.run(Trigger.update) {
             Core.app.post { updateList() }
         }
     }
 
     class UnitData(unit: Unit) {
-        val player: Player?
-        val unit: Unit
+        var player: Player?
+        var unit: Unit
         var id: Int
 
         init {
@@ -52,6 +47,12 @@ object PlayersData {
             }
 
             fun delete(id: Int) {
+                for (data in playerData) {
+                    if (data.value.id == id) {
+                        playerData.remove(data.key)
+                    }
+                }
+
                 unitData.remove(id)
             }
         }
@@ -77,13 +78,14 @@ object PlayersData {
 
             if (player != null) {
                 if (data.value.id != player.unit().id) {
-                    data.value.id = player.unit().id
-
                     unitData.put(data.value.id, data.value)
 
-                    Log.info("updated / $unitData / $playerData")
+                    data.value.id = player.unit().id
+                    data.value.player = player
+                    data.value.unit = player.unit()
                 }
             } else {
+                unitData.remove(data.value.id)
                 playerData.remove(data.key)
             }
         }

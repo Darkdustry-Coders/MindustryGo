@@ -11,10 +11,10 @@ import net.darkdustry.go.utils.PlayersData
 object PluginEvents {
     fun init() {
         Events.on(EventType.UnitDestroyEvent::class.java) { event ->
-            val unitData: PlayersData.UnitData? = PlayersData.UnitData.get(event.unit.id)
+            val data = PlayersData.UnitData.get(event.unit.id)
 
-            if (unitData?.unit?.player != null) {
-                val player = unitData.player!!
+            if (data?.unit?.player != null) {
+                val player = data.player!!
 
                 val bullets = Seq<Bullet>()
                 Groups.bullet.copy(bullets)

@@ -11,7 +11,7 @@ object Utils {
         return supportedLocales.find { locale -> name.startsWith(locale.toString()) } ?: defaultLocale
     }
 
-    fun findPlayer(uuid: String?): Player? {
+    fun findPlayer(uuid: String): Player? {
         return Groups.player.find { player -> player.uuid().equals(uuid) }
     }
 
