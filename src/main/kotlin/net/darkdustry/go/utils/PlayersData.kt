@@ -17,7 +17,11 @@ object PlayersData {
     fun init() {
         Events.on(PlayerJoin::class.java) { event ->
             val player = event.player
-            playerData.put(player.uuid(), UnitData(player.unit()))
+            val data = UnitData(player.unit())
+
+            playerData.put(player.uuid(), data)
+            unitData.put(player.unit().id, data)
+
             Database.write(bytes(player.uuid()), PlayerModel(player.uuid(), player.name).toByteArray())
         }
 
