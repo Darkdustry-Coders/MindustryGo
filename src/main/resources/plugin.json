@@ -6,6 +6,6 @@
   "main": "net.darkdustry.go.Main",
   "hidden": false,
   "java": true,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "minGameVersion": 140.4
 }
